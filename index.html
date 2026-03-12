@@ -386,6 +386,20 @@
       100%{ transform:translate(var(--tx),var(--ty)) scale(0); opacity:0; }
     }
 
+    #selfDestruct {
+      display: inline-block;
+    }
+    #selfDestruct.animate {
+      animation: selfDestruct 6s ease 0.5s forwards;
+    }
+    @keyframes selfDestruct {
+      0%   { opacity:1; letter-spacing: 0.04em; }
+      30%  { opacity:1; letter-spacing: 0.15em; color: var(--red); }
+      45%  { opacity:0; letter-spacing: 0.3em; }
+      75%  { opacity:0; letter-spacing: 0.3em; }
+      100% { opacity:1; letter-spacing: 0.04em; color: inherit; }
+    }
+
     @media(max-width:600px){
       .hud { display:none; }
       .progress-wrap { padding:0 1rem; }
@@ -447,8 +461,11 @@
       You remembered. You passed.<br/>
       Barely — but you passed.<br/><br/>
       Dark chocolate. English. No time limit.<br/>
-      Same city. Different café.<br/>
-      <em>And this time — wait for me to finish the sentence before getting distracted.</em>
+      Same city. Different café.<br/><br/>
+      <em>Yes, I built this. No, I will not explain how.</em><br/><br/>
+      <span id="selfDestruct">This message will self destruct.</span><br/>
+      Just kidding.<br/>
+      See you soon, Pascal! :)
     </p>
     <div class="final-cta">
       <a class="btn no-anim" href="https://wa.me/41799644960" target="_blank">Confirm via WhatsApp 💚</a>
@@ -663,6 +680,10 @@
       updateProgress();
       for(let i=0;i<60;i++) setTimeout(()=>spawnParticle(),i*45);
       transitionTo('final');
+      setTimeout(()=>{
+        const sd = document.getElementById('selfDestruct');
+        if(sd) sd.classList.add('animate');
+      }, 2500);
     }
 
     function flashRed(){
